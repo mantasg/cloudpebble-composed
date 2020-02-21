@@ -53,7 +53,7 @@ ycmd:
 redis:
   image: redis
 postgres:
-  image: postgres
+  image: postgres:10.5
 s3:
   image: kuracloud/fake-s3
   ports:
