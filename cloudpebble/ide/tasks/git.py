@@ -25,14 +25,15 @@ logger = logging.getLogger(__name__)
 
 
 @task(acks_late=True)
-def do_import_github(project_id, github_user, github_project, github_branch, delete_project=False):
+def do_import_github(project_id, github_user, github_project, github_branch, github_token, delete_project=False):
     try:
         url = "https://github.com/%s/%s/archive/%s.zip" % (github_user, github_project, github_branch)
-        if file_exists(url):
-            u = urllib2.urlopen(url)
-            return do_import_archive(project_id, u.read())
-        else:
-            raise Exception("The branch '%s' does not exist." % github_branch)
+        logger.info("URL: %s", url)
+        r = urllib2.Request(url)
+        if github_token is not None:
+            r.add_header('Authorization', 'token ' + github_token)
+        u = urllib2.urlopen(r)
+        return do_import_archive(project_id, u.read())
     except Exception as e:
         try:
             project = Project.objects.get(pk=project_id)
@@ -50,7 +51,8 @@ def do_import_github(project_id, github_user, github_project, github_branch, del
                 'reason': e.message,
                 'github_user': github_user,
                 'github_project': github_project,
-                'github_branch': github_branch
+                'github_branch': github_branch,
+                'github_token': github_token
             }
         }, user=user)
         raise

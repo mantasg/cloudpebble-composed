@@ -117,6 +117,7 @@ $(function() {
         var name = active_set.find('#import-github-name').val();
         var url = active_set.find('#import-github-url').val();
         var branch = active_set.find('#import-github-branch').val();
+        var token = active_set.find('#import-github-token').val();
         var add_remote = !!active_set.find('#import-github-add-remote').is(':checked');
         if(name.replace(/\s/g, '') === '') {
             active_set.find('.errors').removeClass('hide').text(gettext("You must specify a project name."));
@@ -136,6 +137,7 @@ $(function() {
             name: name,
             repo: url,
             branch: branch,
+            token: token,
             add_remote: add_remote
         }), active_set);
         ga('send', 'event', 'project', 'import', 'github');

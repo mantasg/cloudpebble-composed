@@ -176,6 +176,12 @@
                             <input type="text" id="import-github-branch" placeholder="master" />
                         </div>
                     </div>
+                    <div class="control-group">
+                        <label class="control-label" for="import-github-token">{% trans "Token (optional)" %}</label>
+                        <div class="controls">
+                            <input type="text" id="import-github-token" />
+                        </div>
+                    </div>
                     {% if user.github %}
                     <div class="control-group">
                         <label class="control-label" for="import-github-add-remote">{% trans "Use as Git remote" %}</label>

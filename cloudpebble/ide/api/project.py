@@ -351,6 +351,7 @@ def import_github(request):
     name = request.POST['name']
     repo = request.POST['repo']
     branch = request.POST['branch']
+    token = request.POST['token']
     add_remote = (request.POST['add_remote'] == 'true')
     match = re.match(r'^(?:https?://|git@|git://)?(?:www\.)?github\.com[/:]([\w.-]+)/([\w.-]+?)(?:\.git|/|$)', repo)
     if match is None:
@@ -369,7 +370,7 @@ def import_github(request):
         project.github_branch = branch
         project.save()
 
-    task = do_import_github.delay(project.id, github_user, github_project, branch, delete_project=True)
+    task = do_import_github.delay(project.id, github_user, github_project, branch, token, delete_project=True)
     return {'task_id': task.task_id, 'project_id': project.id}
 
 
