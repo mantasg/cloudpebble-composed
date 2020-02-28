@@ -55,8 +55,12 @@ ycmd:
 redis:
   image: redis
 postgres:
+  volumes:
+    - "./pgdata:/var/lib/postgresql/data:rw"
   image: postgres:10.5
 s3:
   image: kuracloud/fake-s3
+  volumes:
+    - "./fake_s3_root:/fakes3_root:rw"
   ports:
     - "8003:4569"
