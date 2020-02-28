@@ -17,13 +17,15 @@ web:
     - PORT=80
     # On MAC - go to your settings -> Network -> copy IP address
     # NOTE: you can NOT use 127.0.0.1 or 0.0.0.0 because it will be the machine's IP address, not your PC's address
-    - AWS_S3_FAKE_S3=192.168.76.5:8003
-    - MEDIA_URL=http://192.168.76.5:8003/builds.cloudpebble.net/
-    - QEMU_URLS=http://192.168.76.5:8001/
-    - YCM_URLS=http://192.168.76.5:8002/
-    - PUBLIC_URL=http://192.168.76.5/
+    - AWS_S3_FAKE_S3=${LOCAL_IP}:8003
+    - MEDIA_URL=http://${LOCAL_IP}:8003/builds.cloudpebble.net/
+    - QEMU_URLS=http://${LOCAL_IP}:8001/
+    - YCM_URLS=http://${LOCAL_IP}:8002/
+    - PUBLIC_URL=http://${LOCAL_IP}/
     - LIBPEBBLE_PROXY=wss://cloudpebble-ws.herokuapp.com/tool
     - PEBBLE_AUTH_URL=https://auth.rebble.io
+    - GITHUB_ID=${GITHUB_ID}
+    - GITHUB_SECRET=${GITHUB_SECRET}
 celery:
   build: cloudpebble/
   volumes:
@@ -36,8 +38,8 @@ celery:
     - DEBUG="yes"
     - RUN_CELERY="yes"
     - AWS_ENABLED=yes
-    - EXPORT_ROOT=http://192.168.76.5/export.cloudpebble.net/
-    - AWS_S3_FAKE_S3=192.168.76.5:8003
+    - EXPORT_ROOT=http://${LOCAL_IP}/export.cloudpebble.net/
+    - AWS_S3_FAKE_S3=${LOCAL_IP}:8003
 qemu:
   build: cloudpebble-qemu-controller/
   volumes:
