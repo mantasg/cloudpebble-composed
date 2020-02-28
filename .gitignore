@@ -1,1 +1,2 @@
 pgdata/*
+/fake_s3_root/*
