@@ -16,8 +16,8 @@ logger = logging.getLogger(__name__)
 
 def git_auth_check(f):
     def g(user, *args, **kwargs):
-        if not git_verify_tokens(user):
-            raise Exception(_("Invalid user GitHub tokens."))
+        #if not git_verify_tokens(user):
+        #    raise Exception(_("Invalid user GitHub tokens."))
         try:
             return f(user, *args, **kwargs)
         except BadCredentialsException:
