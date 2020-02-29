@@ -25,6 +25,7 @@ ENV PYPKJS_VERSION 1.1.1
 
 #RUN git clone https://github.com/pebble/pypkjs.git --depth 1 --branch v$PYPKJS_VERSION --recursive
 RUN git clone https://github.com/pebble/pypkjs.git --depth 1 --branch master --recursive
+RUN sed -i '36d' /pypkjs/pypkjs/timeline/websync.py
 
 RUN virtualenv /pypkjs/.env && . /pypkjs/.env/bin/activate && pip install -r /pypkjs/requirements.txt
 
